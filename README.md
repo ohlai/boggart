@@ -19,6 +19,15 @@ This project is a desktop application for Windows that serves as a wrapper for C
     python main.py
     ```
 
+4. Run the new chat interface:
+    ```
+    python ui.py
+    ```
+
+## New Chat Interface
+
+The new chat interface provides a modern-looking UI with a dark mode color scheme and deep purple accent color. It has a frosted glass aesthetic, with user text on the right and AI responses on the left. The chat input is at the bottom of the interface, with a rounded, frosted glass appearance.
+
 ## Roadmap
 
 - **MVP**: Build a minimum viable product with Python that captures screenshots and sends them along with user queries to the language model.

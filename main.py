@@ -2,6 +2,8 @@ import openai
 from PIL import ImageGrab
 import io
 import base64
+from ui import ChatInterface
+import customtkinter as ctk
 
 def take_screenshot():
     screenshot = ImageGrab.grab()
@@ -20,10 +22,9 @@ def send_query_with_screenshot(query, screenshot):
     return response.choices[0].text.strip()
 
 def main():
-    query = input("Enter your query: ")
-    screenshot = take_screenshot()
-    response = send_query_with_screenshot(query, screenshot)
-    print("Response from LLM:", response)
+    root = ctk.CTk()
+    chat_interface = ChatInterface(root)
+    root.mainloop()
 
 if __name__ == "__main__":
     main()
