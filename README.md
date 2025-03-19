@@ -1,4 +1,4 @@
-# ChatGPT Desktop App
+# Boggart - AI Desktop Assistant
 
 This project is a desktop application for Windows that serves as a wrapper for ChatGPT (or other large language models). The application takes a screenshot of the user's desktop when they query the language model and adds that screenshot to their context input before sending it via API to the language model.
 
