@@ -6,8 +6,7 @@ This project is a desktop application for Windows that serves as a wrapper for C
 
 1. Clone the repository:
     ```
-    git clone https://github.com/githubnext/workspace-blank.git
-    cd workspace-blank
+    git clone https://github.com/ohlai/boggart/tree/main
     ```
 
 2. Install the required dependencies:
