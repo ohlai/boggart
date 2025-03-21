@@ -79,3 +79,15 @@ flet build windows -v
 ```
 
 For more details on building Windows package, refer to the [Windows Packaging Guide](https://flet.dev/docs/publish/windows/).
+
+# Todo
+## Cosmetic
+- loading indicator
+- text bubbles
+- background
+- dropshadow
+- icon
+- outline on input
+
+## Functionality
+- settings

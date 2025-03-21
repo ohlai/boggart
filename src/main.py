@@ -1,10 +1,11 @@
 import flet as ft
+from oldmain import take_screenshot, send_query_with_screenshot
 
 def main(page: ft.Page):
     # Set window size and title
     page.title = "Minimalist Chat UI"
-    page.width = 400
-    page.height = 500
+    page.window.width = 500
+    page.window.height = 600
     page.theme_mode = ft.ThemeMode.LIGHT
     page.bgcolor = ft.LinearGradient(
         begin=ft.alignment.top_center,
@@ -22,12 +23,14 @@ def main(page: ft.Page):
     # Function to handle sending messages
     def send_message(e):
         if message_input.value.strip():
+            user_message = message_input.value
+            message_input.value = ""
             # User message aligned to the right
             messages.controls.append(
                 ft.Row(
                     controls=[
                         ft.Text(
-                            message_input.value,
+                            user_message,
                             size=16,
                             color="#000000",  # Black text for visibility
                         )
@@ -35,21 +38,50 @@ def main(page: ft.Page):
                     alignment=ft.MainAxisAlignment.END,  # Align to the right
                 )
             )
-            # Placeholder reply aligned to the left
-            messages.controls.append(
-                ft.Row(
-                    controls=[
-                        ft.Text(
-                            "This is a placeholder reply.",
-                            size=16,
-                            color="#000000",  # Black text for visibility
-                        )
-                    ],
-                    alignment=ft.MainAxisAlignment.START,  # Align to the left
+            page.update()  # Update the page to show the user's message
+
+            # Take a screenshot and send the query with the screenshot
+            try:
+                screenshot = take_screenshot()
+                response = send_query_with_screenshot(user_message, screenshot)
+
+                # Stream and display the response as it is generated
+                reply = ""
+                for chunk in response:
+                    for choice in chunk.choices:
+                        if choice.finish_reason != "stop":
+                            reply += choice.delta.content
+                            page.update()
+
+                # Display the reply aligned to the left
+                messages.controls.append(
+                    ft.Row(
+                        controls=[
+                            ft.Text(
+                                reply,
+                                size=16,
+                                color="#000000",  # Black text for visibility
+                            )
+                        ],
+                        alignment=ft.MainAxisAlignment.START,  # Align to the left
+                    )
                 )
-            )
-            message_input.value = ""
-            page.update()  # Ensure the page is updated to reflect changes
+            except Exception as ex:
+                # Display error message
+                messages.controls.append(
+                    ft.Row(
+                        controls=[
+                            ft.Text(
+                                f"Error: {ex}",
+                                size=16,
+                                color="#ff0000",  # Red text for errors
+                            )
+                        ],
+                        alignment=ft.MainAxisAlignment.START,
+                    )
+                )
+            finally:
+                page.update()  # Ensure the page is updated to reflect changes
 
     # Text input field
     message_input = ft.TextField(
@@ -73,13 +105,6 @@ def main(page: ft.Page):
         controls=[
             message_input,
             settings_icon,
-            ft.ElevatedButton(
-                text="Send",
-                on_click=send_message,
-                height=40,
-                bgcolor="#4CAF50",
-                color="white",
-            ),
         ],
         spacing=10,
     )
