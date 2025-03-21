@@ -3,8 +3,8 @@ import flet as ft
 def main(page: ft.Page):
     # Set window size and title
     page.title = "Minimalist Chat UI"
-    page.window_width = 400
-    page.window_height = 500
+    page.width = 400
+    page.height = 500
     page.theme_mode = ft.ThemeMode.LIGHT
     page.bgcolor = ft.LinearGradient(
         begin=ft.alignment.top_center,
@@ -22,19 +22,30 @@ def main(page: ft.Page):
     # Function to handle sending messages
     def send_message(e):
         if message_input.value.strip():
-            # Simplified message rendering for troubleshooting
+            # User message aligned to the right
             messages.controls.append(
-                ft.Text(
-                    message_input.value,
-                    size=16,
-                    color="#000000",  # Black text for visibility
+                ft.Row(
+                    controls=[
+                        ft.Text(
+                            message_input.value,
+                            size=16,
+                            color="#000000",  # Black text for visibility
+                        )
+                    ],
+                    alignment=ft.MainAxisAlignment.END,  # Align to the right
                 )
             )
+            # Placeholder reply aligned to the left
             messages.controls.append(
-                ft.Text(
-                    "This is a placeholder reply.",
-                    size=16,
-                    color="#000000",  # Black text for visibility
+                ft.Row(
+                    controls=[
+                        ft.Text(
+                            "This is a placeholder reply.",
+                            size=16,
+                            color="#000000",  # Black text for visibility
+                        )
+                    ],
+                    alignment=ft.MainAxisAlignment.START,  # Align to the left
                 )
             )
             message_input.value = ""
