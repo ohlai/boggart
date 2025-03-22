@@ -88,6 +88,12 @@ For more details on building Windows package, refer to the [Windows Packaging Gu
 - [x] dropshadow
 - [x] icon
 - [x] outline on input
+- [ ] copy code button
 
 ## Functionality
 - [ ] settings
+- [ ] chat memory
+- [ ] refresh button
+
+## Longterm
+- [ ] read websites
