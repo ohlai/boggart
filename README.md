@@ -140,17 +140,6 @@ API_KEY = "your_openai_api_key"
 ### Long-Term Goals
 
 - [ ] Ability to read and summarize websites
-
-## Contributing
-
-Contributions are welcome! Feel free to open issues or submit pull requests to improve the app.
-
-## License
-
-This project is licensed under the MIT License. See the `LICENSE` file for details.
-
-## Acknowledgments
-
-- [Flet Framework](https://flet.dev/)
-- [OpenAI GPT-4](https://openai.com/)
-- [Pillow Library](https://python-pillow.org/)
+  
+## Known issues
+- in consistent amount of space below messages which allows user to scroll onto completely blank screen.
