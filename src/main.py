@@ -1,13 +1,48 @@
 import flet as ft
-from screenshot_query import take_screenshot, send_query_with_screenshot
+import base64
+from openai import OpenAI
+from config import API_KEY
+#from screenshot_query import take_screenshot, send_query_with_screenshot
+
+client = OpenAI(api_key=API_KEY)
+
+def take_screenshot():
+    from PIL import ImageGrab
+    import io
+
+    screenshot = ImageGrab.grab()
+    buffered = io.BytesIO()
+    screenshot.save(buffered, format="PNG")
+    return base64.b64encode(buffered.getvalue()).decode("utf-8")
+
+def send_query_with_screenshot(query, screenshot):
+    response = client.chat.completions.create(
+        model="gpt-4o",
+        messages=[
+            {
+                "role": "user",
+                "content": [
+                    {"type": "text", "text": query},
+                    {
+                        "type": "image_url",
+                        "image_url": {
+                            "url": f"data:image/png;base64,{screenshot}",
+                        },
+                    },
+                ],
+            }
+        ],
+        stream=True,  # Enable streaming
+    )
+    return response
 
 def main(page: ft.Page):
     # Set window size and title
-    page.title = "Minimalist Chat UI"
+    page.title = "Boggart"
     page.window.width = 500
     page.window.height = 600
     page.theme_mode = ft.ThemeMode.LIGHT
-    #page.window.icon = "assets/icon.png"
+    page.window.icon = "assets/icon.png"
     
     page.bgcolor = ft.LinearGradient(
         begin=ft.alignment.top_center,
@@ -49,7 +84,7 @@ def main(page: ft.Page):
                                     color="#000000",
                                     selectable=True,
                                 ),
-                                bgcolor="#e0f7fa",  # Light blue background
+                                bgcolor="#f0e4ff",  
                                 border_radius=ft.border_radius.all(15),  # Rounded corners
                                 padding=ft.padding.all(10),  # Padding inside the container
                             ),
@@ -71,7 +106,7 @@ def main(page: ft.Page):
                 ft.Row(
                     controls=[
                         ft.Container(
-                            ft.ProgressRing(width=20, height=20, tooltip="Thinking..."),
+                            ft.ProgressRing(width=20, height=20, color="#875ae6", tooltip="Thinking..."),
                             padding=ft.padding.only(left=20),
                         )
                     ],
@@ -153,17 +188,17 @@ def main(page: ft.Page):
     )
 
     # Settings icon
-    settings_icon = ft.IconButton(
-        icon=ft.Icons.SETTINGS,
-        icon_size=20,
-        tooltip="Settings",
-    )
+    #settings_icon = ft.IconButton(
+     #   icon=ft.Icons.SETTINGS,
+    #    icon_size=20,
+    #    tooltip="Settings",
+    #)
 
     # Input row containing the text field and buttons
     input_row = ft.Row(
         controls=[
             message_input,
-            settings_icon,
+            #settings_icon,
         ],
         spacing=10,
     )

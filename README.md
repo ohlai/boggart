@@ -85,9 +85,9 @@ For more details on building Windows package, refer to the [Windows Packaging Gu
 - [x] loading indicator
 - [x] text bubbles
 - [ ] background
-- [ ] dropshadow
-- [ ] icon
-- [ ] outline on input
+- [x] dropshadow
+- [x] icon
+- [x] outline on input
 
 ## Functionality
 - [ ] settings
