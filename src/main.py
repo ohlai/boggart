@@ -1,5 +1,5 @@
 import flet as ft
-from oldmain import take_screenshot, send_query_with_screenshot
+from screenshot_query import take_screenshot, send_query_with_screenshot
 
 def main(page: ft.Page):
     # Set window size and title
@@ -7,6 +7,7 @@ def main(page: ft.Page):
     page.window.width = 500
     page.window.height = 600
     page.theme_mode = ft.ThemeMode.LIGHT
+    #page.window.icon = "assets/icon.png"
     
     page.bgcolor = ft.LinearGradient(
         begin=ft.alignment.top_center,
@@ -126,6 +127,7 @@ def main(page: ft.Page):
                                 f"Error: {ex}",
                                 size=16,
                                 color="#ff0000",
+                                selectable=True,
                             )
                         ],
                         alignment=ft.MainAxisAlignment.START,
@@ -139,6 +141,7 @@ def main(page: ft.Page):
         hint_text="Type your message...",
         expand=True,
         border_radius=ft.border_radius.all(20),
+        border_width=0,
         bgcolor="#ffffff",
         text_size=14,
         on_submit=send_message,
@@ -146,6 +149,7 @@ def main(page: ft.Page):
         min_lines=1,
         max_lines=12,
         shift_enter=True,
+        border=None,  
     )
 
     # Settings icon
@@ -177,7 +181,14 @@ def main(page: ft.Page):
                     content=input_row,
                     padding=ft.padding.symmetric(horizontal=10, vertical=5),
                     #bgcolor="#f0f0f0",
-                    #border_radius=ft.border_radius.all(10),
+                    border_radius=ft.border_radius.all(30),
+                    shadow=ft.BoxShadow(
+                        spread_radius=1,
+                        blur_radius=15,
+                        color=ft.Colors.GREY,
+                        offset=ft.Offset(0, 0),
+                        blur_style=ft.ShadowBlurStyle.OUTER,
+                     )
                 ),
             ],
             expand=True,
