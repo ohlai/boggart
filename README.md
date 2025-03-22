@@ -82,12 +82,12 @@ For more details on building Windows package, refer to the [Windows Packaging Gu
 
 # Todo
 ## Cosmetic
-- loading indicator
-- text bubbles
-- background
-- dropshadow
-- icon
-- outline on input
+- [x] loading indicator
+- [x] text bubbles
+- [ ] background
+- [ ] dropshadow
+- [ ] icon
+- [ ] outline on input
 
 ## Functionality
-- settings
+- [ ] settings
