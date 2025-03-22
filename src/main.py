@@ -20,7 +20,16 @@ def main(page: ft.Page):
         expand=True,
         scroll=ft.ScrollMode.AUTO,  # Enable scrolling
     )
-    
+
+    # Function to adjust the blank container height
+    def adjust_blank_space():
+        # Calculate the height dynamically
+        blank_space_height = max(0, page.window.height - (len(messages.controls) * 60))  # Adjust 50 based on message height
+        if len(messages.controls) > 0 and isinstance(messages.controls[-1], ft.Container):
+            messages.controls[-1].height = blank_space_height
+        else:
+            messages.controls.append(ft.Container(height=blank_space_height))
+        page.update()
 
     # Function to handle sending messages
     def send_message(e):
@@ -28,7 +37,7 @@ def main(page: ft.Page):
             user_message = message_input.value
             message_input.value = ""
             # User message aligned to the right
-            messages.controls.append(
+            messages.controls.insert(-1,
                 ft.Row(
                     controls=[
                         ft.Container(
@@ -49,24 +58,30 @@ def main(page: ft.Page):
                     alignment=ft.MainAxisAlignment.END,
                     wrap=True,
                     width=page.window.width,
+                    key="1",
                 )
             )
 
-            # Scroll to the top of the messages container
-            page.scroll_to(0)  # Scroll to the top (position 0)
-            page.update()
+            # Adjust the blank space at the bottom
+            adjust_blank_space()
 
             # Display loading indicator
-            messages.controls.append(
+            messages.controls.insert(-1,
                 ft.Row(
                     controls=[
-                        ft.ProgressRing(width=20, height=20, tooltip="Thinking...")
+                        ft.Container(
+                            ft.ProgressRing(width=20, height=20, tooltip="Thinking..."),
+                            padding=ft.padding.only(left=20),
+                        )
                     ],
                     wrap=True,
                     width=page.window.width,
                     alignment=ft.MainAxisAlignment.START,
                 )
             )
+
+            messages.scroll_to(key="1", duration=500)
+
             page.update()
 
             # Take a screenshot and send the query with the screenshot
@@ -79,11 +94,11 @@ def main(page: ft.Page):
                 for chunk in response:
                     for choice in chunk.choices:
                         if choice.finish_reason != "stop":
-                            messages.controls.pop() 
+                            messages.controls.pop(-2)
                             reply += choice.delta.content
 
                             # Display the reply aligned to the left
-                            messages.controls.append(
+                            messages.controls.insert(-1,
                                 ft.Row(
                                     controls=[
                                         ft.Markdown(
@@ -104,7 +119,7 @@ def main(page: ft.Page):
                             
             except Exception as ex:
                 # Display error message
-                messages.controls.append(
+                messages.controls.insert(-1,
                     ft.Row(
                         controls=[
                             ft.Text(
