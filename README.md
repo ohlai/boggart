@@ -7,6 +7,7 @@ Boggart is a desktop application that allows users to interact with an AI-powere
 - **AI Chatbot**: Interact with an AI-powered chatbot using OpenAI's GPT-4 model.
 - **Screenshot Integration**: Automatically captures and sends screenshots with user queries for better context.
 - **Responsive UI**: A clean and responsive interface built with Flet.
+- **Command-Line Interface**: Use the app directly from the CLI with `screenshot_query.py`.
 
 ## Installation
 
@@ -31,6 +32,19 @@ poetry install
 ```
 
 ## Running the App
+
+### Using the CLI with `screenshot_query.py`
+
+You can also use the app directly from the command line by running `screenshot_query.py`. This allows you to send queries and screenshots without launching the full UI.
+
+```bash
+python src/screenshot_query.py "Your query here"
+```
+
+This will:
+1. Take a screenshot of your current screen.
+2. Send the screenshot and query to the AI.
+3. Display the AI's response in the terminal.
 
 ### As a Desktop App
 
@@ -86,7 +100,7 @@ For detailed instructions on building and signing packages, refer to the [Flet D
 .
 ├── src/
 │   ├── main.py               # Main application entry point
-│   ├── screenshot_query.py   # Handles screenshot capture and query submission
+│   ├── screenshot_query.py   # Handles screenshot capture and query submission (CLI support)
 │   ├── config.py             # Configuration file for API keys
 │   └── assets/               # Static assets (e.g., icons)
 ├── storage/                  # Temporary and persistent storage
