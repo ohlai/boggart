@@ -137,6 +137,7 @@ API_KEY = "your_openai_api_key"
 - [ ] Settings menu / screenshot include toggle
 - [ ] Chat memory
 - [ ] Refresh button
+- [ ] Screenshot without the boggart window
 
 ### Long-Term Goals
 
