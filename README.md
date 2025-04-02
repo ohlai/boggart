@@ -130,10 +130,11 @@ API_KEY = "your_openai_api_key"
 - [x] Icon
 - [x] Outline on input
 - [ ] Copy code button
+- [ ] Scroll to bottom button
 
 ### Functional Improvements
 
-- [ ] Settings menu
+- [ ] Settings menu / screenshot include toggle
 - [ ] Chat memory
 - [ ] Refresh button
 
